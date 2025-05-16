@@ -1,5 +1,7 @@
 package com.ecommerce.userservice.controller;
 
+import com.ecommerce.userservice.dto.AuthenticationRequest;
+import com.ecommerce.userservice.dto.AuthenticationResponse;
 import com.ecommerce.userservice.dto.RegisterRequest;
 import com.ecommerce.userservice.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -14,9 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 public class UserController {
     private final UserService userService;
+
     @PostMapping("/register")
     public ResponseEntity<String> register(@RequestBody RegisterRequest request) {
         String result = userService.register(request);
         return ResponseEntity.ok(result);
     }
+
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(@RequestBody AuthenticationRequest request) {
+        AuthenticationResponse response = userService.authenticate(request);
+        return ResponseEntity.ok(response);
+    }
+
 }
