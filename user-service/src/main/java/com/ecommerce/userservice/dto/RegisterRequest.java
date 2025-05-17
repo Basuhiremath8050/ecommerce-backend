@@ -1,5 +1,6 @@
 package com.ecommerce.userservice.dto;
 
+import com.ecommerce.userservice.model.Role;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,5 +13,5 @@ import lombok.NoArgsConstructor;
 public class RegisterRequest {
     private String email;
     private String password;
-    private String role;
+    private Role role;
 }

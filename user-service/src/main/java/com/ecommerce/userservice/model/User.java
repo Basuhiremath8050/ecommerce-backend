@@ -1,12 +1,11 @@
 package com.ecommerce.userservice.model;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
-@Data
+//@Data
+@Setter
+@Getter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
@@ -19,5 +18,6 @@ public class User {
     @Column(unique = true)
     private String email;
     private String password;
-    private String role;
+    @Enumerated(EnumType.STRING)
+    private Role role;
 }
