@@ -33,7 +33,18 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
         }
 
         jwt = authHeader.substring(7);
-        userEmail = jwtService.extractEmail(jwt);
+
+
+        try {
+            userEmail = jwtService.extractEmail(jwt);
+        } catch (Exception e) {
+            // Invalid JWT format or tampered
+            SecurityContextHolder.clearContext(); // Clear any existing auth
+            filterChain.doFilter(request, response); // Proceed without setting authentication
+            return;
+        }
+
+
 
         if (userEmail != null && SecurityContextHolder.getContext().getAuthentication() == null) {
             UserDetails userDetails = this.userDetailsService.loadUserByUsername(userEmail);
