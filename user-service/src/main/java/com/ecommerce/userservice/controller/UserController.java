@@ -30,16 +30,17 @@ public class UserController {
         AuthenticationResponse response = userService.authenticate(request);
         return ResponseEntity.ok(response);
     }
+
     @GetMapping("/profile")
-    public ResponseEntity<User> getProfile(Authentication authentication){
+    public ResponseEntity<User> getProfile(Authentication authentication) {
         String email = authentication.getName();
         User user = userRepository.findByEmail(email).orElseThrow(() -> new RuntimeException("User not found"));
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/testing")
-    public ResponseEntity<String> test(){
-             return ResponseEntity.ok("tested successfully");
+    @GetMapping("/test")
+    public ResponseEntity<String> test() {
+        return ResponseEntity.ok("tested successfully");
     }
 
 }
