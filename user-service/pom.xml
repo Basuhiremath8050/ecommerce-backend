@@ -109,4 +109,22 @@
 		</dependency>
 
 	</dependencies>
+	<build>
+		<plugins>
+			<!-- Spring Boot Maven Plugin -->
+			<plugin>
+				<groupId>org.springframework.boot</groupId>
+				<artifactId>spring-boot-maven-plugin</artifactId>
+				<version>3.2.5</version> <!-- Use your Spring Boot version -->
+				<executions>
+					<execution>
+						<goals>
+							<goal>repackage</goal> <!-- THIS IS VERY IMPORTANT -->
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+		</plugins>
+	</build>
+
 </project>

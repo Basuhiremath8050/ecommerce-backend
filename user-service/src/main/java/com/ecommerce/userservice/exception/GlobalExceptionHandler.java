@@ -25,8 +25,8 @@ public class GlobalExceptionHandler {
         return buildResponse("Bad Request - Invalid input", HttpStatus.BAD_REQUEST); // 400
     }
 
-    @ExceptionHandler(Exception.class)
-    public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex) {
-        return buildResponse("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR); // 500 fallback
-    }
+//    @ExceptionHandler(Exception.class)
+//    public ResponseEntity<Map<String, Object>> handleGeneric(Exception ex) {
+//        return buildResponse("Internal Server Error", HttpStatus.INTERNAL_SERVER_ERROR); // 500 fallback
+//    }
 }

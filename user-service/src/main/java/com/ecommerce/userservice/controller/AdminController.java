@@ -23,11 +23,7 @@ public class AdminController {
         return ResponseEntity.ok(adminService.getAllUsers());
     }
 
-    @PreAuthorize("hasRole('ADMIN')")
-    @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUserById(@PathVariable Long id) {
-        return ResponseEntity.ok(adminService.getUserById(id));
-    }
+
 
     @PreAuthorize("hasRole('ADMIN')")
     @DeleteMapping("/users/{id}")

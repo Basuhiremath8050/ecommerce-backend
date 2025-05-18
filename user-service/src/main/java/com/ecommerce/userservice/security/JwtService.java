@@ -16,7 +16,7 @@ import java.util.function.Function;
 public class JwtService {
     private final Key key;
 
-    public JwtService(@Value("${jwt.secret}") String secretKey) {
+    public JwtService(@Value("${jwt.secret:default-jwt-secret-key-must-be-32-bytes-minimum}") String secretKey) {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
     public String generateToken(String email) {
