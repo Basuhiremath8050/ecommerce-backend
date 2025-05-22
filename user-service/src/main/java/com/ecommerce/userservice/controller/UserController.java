@@ -38,7 +38,7 @@ public class UserController {
         return ResponseEntity.ok(user);
     }
 
-    @GetMapping("/test")
+    @GetMapping("/testing")
     public ResponseEntity<String> test() {
         return ResponseEntity.ok("tested successfully");
     }

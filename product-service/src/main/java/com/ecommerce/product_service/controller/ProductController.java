@@ -7,8 +7,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-// package: controller/ProductController.java
 @RestController
 @RequestMapping("/api/products")
 @RequiredArgsConstructor
