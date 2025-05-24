@@ -1,24 +1,23 @@
-package com.ecommerce.userservice.security;
+package com.ecommerce.product_service.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.stereotype.Service;
 
 import java.nio.charset.StandardCharsets;
 import java.security.Key;
 import java.util.Date;
 import java.util.function.Function;
 
-@Service
 public class JwtService {
     private final Key key;
 
     public JwtService(@Value("${jwt.secret:default-jwt-secret-key-must-be-32-bytes-minimum}") String secretKey) {
         this.key = Keys.hmacShaKeyFor(secretKey.getBytes(StandardCharsets.UTF_8));
     }
+
     public String generateToken(String email) {
         return Jwts.builder()
                 .setSubject(email)
@@ -28,9 +27,9 @@ public class JwtService {
                 .compact();
     }
 
-    public Boolean validateToken(String token, String username) {
-        final String tokenUsername = extractEmail(token);
-        return (tokenUsername.equals(username) && !isTokenExpired(token));
+    public Boolean validateToken(String token, String email) {
+        String tokenEmail = extractEmail(token);
+        return (tokenEmail.equals(email) && !isTokenExpired(token));
     }
 
     public String extractEmail(String token) {
@@ -39,11 +38,12 @@ public class JwtService {
     }
 
     public <T> T extractClaim(String token, Function<Claims, T> claimResolver) {
-        final Claims claims = extractAllClaims(token);
+        final Claims claims = extractClaims(token);
         return claimResolver.apply(claims);
+
     }
 
-    private Claims extractAllClaims(String token) {
+    private Claims extractClaims(String token) {
         return Jwts.parser()
                 .setSigningKey(key)
                 .parseClaimsJws(token)
@@ -56,6 +56,6 @@ public class JwtService {
 
     public Date extractExpiration(String token) {
         return extractClaim(token, Claims::getExpiration);
-
     }
+
 }
