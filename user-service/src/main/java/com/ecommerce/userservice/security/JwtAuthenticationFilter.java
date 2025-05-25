@@ -31,6 +31,17 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
             filterChain.doFilter(request, response);
             return;
         }
+        String path = request.getRequestURI();
+        if (path.startsWith("/v3/api-docs") ||
+                path.startsWith("/swagger-ui") ||
+                path.startsWith("/swagger-resources") ||
+                path.startsWith("/configuration") ||
+                path.startsWith("/webjars") ||
+                path.startsWith("/api/users/authenticate") ||
+                path.startsWith("/api/users/register")) {
+            filterChain.doFilter(request, response);
+            return;
+        }
 
         jwt = authHeader.substring(7);
 

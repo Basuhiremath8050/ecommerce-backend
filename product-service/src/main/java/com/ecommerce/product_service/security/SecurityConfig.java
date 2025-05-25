@@ -27,7 +27,9 @@ public class SecurityConfig {
                     csrf.disable();
                 })
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/actuator/**", "/eureka/**").permitAll().anyRequest().authenticated();
+                    auth.requestMatchers("/actuator/**", "/eureka/**","/v3/api-docs/**",
+                            "/swagger-ui/**",
+                            "/swagger-ui.html").permitAll().anyRequest().authenticated();
                 })
                 .exceptionHandling(exception -> {
                     exception.authenticationEntryPoint(authenticationEntryPoint)
