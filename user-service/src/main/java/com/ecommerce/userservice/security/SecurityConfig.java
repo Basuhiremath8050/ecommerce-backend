@@ -32,19 +32,19 @@ public class SecurityConfig {
         httpSecurity
                 .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(
-                                    "/api/users/register",
-                                    "/api/users/authenticate",
-                                    "/actuator/**",
-                                    "/eureka/**",
-                                    "/v3/api-docs/**",
-                                    "/swagger-ui/**",
-                                    "/swagger-ui.html",
-                                    "/swagger-resources/**",
-                                    "/configuration/ui",
-                                    "/configuration/security",
-                                    "/webjars/**"
-                            ).permitAll()
+                     auth.requestMatchers(
+                            "/api/users/register",
+                            "/api/users/authenticate",
+                            "/actuator/**",
+                            "/eureka/**",
+                            "/swagger-ui/**",
+                            "/v3/api-docs/**",
+                            "/swagger-resources/**",
+                            "/configuration/**",
+                            "/webjars/**",
+                            "/swagger-ui.html",
+                            "/favicon.ico"
+                    ).permitAll()
                             .requestMatchers("/api/admin/**").hasRole("ADMIN")
                             .anyRequest().authenticated();
                 })

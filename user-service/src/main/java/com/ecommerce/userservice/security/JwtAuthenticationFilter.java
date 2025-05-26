@@ -24,25 +24,34 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+        String path = request.getRequestURI();
+        System.out.println("Request URI: " + request.getRequestURI());
+
+        if (path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-resources")
+                || path.startsWith("/configuration")
+                || path.startsWith("/webjars")
+                || path.equals("/swagger-ui.html")
+                || path.equals("/favicon.ico")
+                || path.startsWith("/api/users/authenticate")
+                || path.startsWith("/api/users/register")
+                || path.startsWith("/eureka")) {
+
+            filterChain.doFilter(request, response);
+            return;
+        }
+
+
+
         final String authHeader = request.getHeader("Authorization");
+        System.out.println("Authorization: " + authHeader);
         final String jwt;
         final String userEmail;
         if (authHeader == null || !authHeader.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
             return;
         }
-        String path = request.getRequestURI();
-        if (path.startsWith("/v3/api-docs") ||
-                path.startsWith("/swagger-ui") ||
-                path.startsWith("/swagger-resources") ||
-                path.startsWith("/configuration") ||
-                path.startsWith("/webjars") ||
-                path.startsWith("/api/users/authenticate") ||
-                path.startsWith("/api/users/register")) {
-            filterChain.doFilter(request, response);
-            return;
-        }
-
         jwt = authHeader.substring(7);
 
 
