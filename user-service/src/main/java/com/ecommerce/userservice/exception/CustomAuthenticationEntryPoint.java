@@ -17,6 +17,22 @@ import java.util.Map;
 public class CustomAuthenticationEntryPoint implements AuthenticationEntryPoint {
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException, ServletException {
+        String path = request.getRequestURI();
+        // Allow Swagger paths to be accessed without authentication
+        if (path.startsWith("/swagger-ui")
+                || path.startsWith("/v3/api-docs")
+                || path.startsWith("/swagger-resources")
+                || path.startsWith("/configuration")
+                || path.startsWith("/webjars")
+                || path.equals("/swagger-ui.html")
+                || path.equals("/favicon.ico")) {
+
+            response.setStatus(HttpServletResponse.SC_OK);
+            return;
+        }
+
+
+
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         response.setContentType("application/json");
         Map<String, Object> body = new HashMap<>();
