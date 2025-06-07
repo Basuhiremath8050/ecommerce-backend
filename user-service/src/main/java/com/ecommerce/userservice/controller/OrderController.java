@@ -2,8 +2,9 @@ package com.ecommerce.userservice.controller;
 
 import com.ecommerce.userservice.dto.ProductDto;
 import com.ecommerce.userservice.service.OrderService;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.*;
-
+@Tag(name = "Order", description = "Fetch product details via order service")
 @RestController
 @RequestMapping("/api/orders")
 public class OrderController {

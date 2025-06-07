@@ -1,5 +1,6 @@
 package com.ecommerce.product_service.config; // or com.ecommerce.userservice.config
 
+import io.swagger.v3.oas.models.Components;
 import io.swagger.v3.oas.models.OpenAPI;
 import io.swagger.v3.oas.models.info.Info;
 import io.swagger.v3.oas.models.security.SecurityRequirement;
@@ -11,20 +12,19 @@ import org.springframework.context.annotation.Configuration;
 public class OpenAPIConfig {
 
     @Bean
-    public OpenAPI customOpenAPI() {
-        final String securitySchemeName = "bearerAuth";
+    public OpenAPI productServiceOpenAPI() {
         return new OpenAPI()
                 .info(new Info()
-                        .title("E-Commerce Microservice API")
+                        .title("Product Service API")
                         .version("1.0")
-                        .description("API documentation for E-Commerce microservices"))
-                .addSecurityItem(new SecurityRequirement().addList(securitySchemeName))
-                .components(new io.swagger.v3.oas.models.Components()
-                        .addSecuritySchemes(securitySchemeName,
+                        .description("Handles product management and catalog APIs"))
+                .addSecurityItem(new SecurityRequirement().addList("bearerAuth"))
+                .components(new Components()
+                        .addSecuritySchemes("bearerAuth",
                                 new SecurityScheme()
-                                        .name(securitySchemeName)
                                         .type(SecurityScheme.Type.HTTP)
                                         .scheme("bearer")
                                         .bearerFormat("JWT")));
     }
+
 }
