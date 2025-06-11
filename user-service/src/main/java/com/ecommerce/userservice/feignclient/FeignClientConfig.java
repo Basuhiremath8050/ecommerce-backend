@@ -1,4 +1,4 @@
-package com.ecommerce.userservice.security;
+package com.ecommerce.userservice.feignclient;
 
 import feign.RequestInterceptor;
 import jakarta.servlet.http.HttpServletRequest;
