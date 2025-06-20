@@ -17,6 +17,10 @@ spring:
       hibernate:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
+  data:
+      mongodb:
+        uri: mongodb://localhost:27017/orderdb
+
 eureka:
   client:
     service-url:

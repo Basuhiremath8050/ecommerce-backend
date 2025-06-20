@@ -2,9 +2,9 @@ package com.ecommerce.userservice.model;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.mongodb.core.mapping.Document;
 
-@Entity
-@Table(name = "orders")
+@Document(collection = "orders")
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
@@ -12,16 +12,10 @@ import lombok.*;
 public class Order {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+    private String id;
     private Long productId;
-
     private String productName;
-
-    private int quantity;
-
-    private double totalPrice;
-
-    private String email; // Who placed the order
+    private Integer quantity;
+    private Double totalPrice;
+    private String email;
 }
