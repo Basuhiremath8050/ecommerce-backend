@@ -6,8 +6,7 @@ services:
     container_name: eureka-server-container
     ports:
       - "8761:8761"
-
-
+      
   postgres:
     image: postgres:15
     container_name: postgres-container
