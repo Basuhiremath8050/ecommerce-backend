@@ -45,5 +45,19 @@ services:
       - postgres
       - eureka-server
 
+  
+  inventory-service:
+    build: ./inventory-service
+    container_name: inventory-service-container
+    ports:
+      - "8083:8083"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ecommerce_db
+      SPRING_DATASOURCE_USERNAME: postgres
+      SPRING_DATASOURCE_PASSWORD: postgres
+    depends_on:
+      - postgres
+      - eureka-server
+
 volumes:
   postgres-data:
