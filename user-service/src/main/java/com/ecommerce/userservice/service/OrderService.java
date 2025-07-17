@@ -2,6 +2,7 @@ package com.ecommerce.userservice.service;
 
 import com.ecommerce.userservice.dto.OrderRequest;
 import com.ecommerce.userservice.dto.ProductDto;
+import com.ecommerce.userservice.feignclient.InventoryClient;
 import com.ecommerce.userservice.feignclient.ProductClient;
 import com.ecommerce.userservice.model.Order;
 import com.ecommerce.userservice.repository.OrderRepository;
@@ -11,11 +12,14 @@ import org.springframework.stereotype.Service;
 public class  OrderService {
     private final ProductClient productClient;
     private final OrderRepository orderRepository;
+    private final InventoryClient inventoryClient;
 
 
-    public OrderService(ProductClient productClient, OrderRepository orderRepository) {
+
+    public OrderService(ProductClient productClient, OrderRepository orderRepository, InventoryClient inventoryClient) {
         this.productClient = productClient;
         this.orderRepository = orderRepository;
+        this.inventoryClient = inventoryClient;
     }
     public ProductDto fetchProductDetails(Long id) {
         return productClient.getProductById(id);
@@ -23,10 +27,13 @@ public class  OrderService {
     public Order placeOrder(OrderRequest request, String userEmail) {
         ProductDto product = productClient.getProductById(request.getProductId());
 
-        if (product.getQuantity() < request.getQuantity()) {
+
+        boolean inStock = inventoryClient.isInStock(product.getId(), product.getQuantity());
+        if (!inStock) {
             throw new RuntimeException("Not enough stock for product: " + product.getName());
         }
-
+        String res = inventoryClient.reduceStock(product.getId(), product.getQuantity());
+        System.out.println("res = " + res);
         Order order = Order.builder()
                 .productId(product.getId())
                 .productName(product.getName())
