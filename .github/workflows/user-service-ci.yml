@@ -2,9 +2,9 @@ name: Build and Push User Service Docker Image
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    paths:
+      - 'user-service/**'
+      - '.github/workflows/user-service-ci.yml'
 
 jobs:
   build-and-push:

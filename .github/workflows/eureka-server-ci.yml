@@ -2,9 +2,9 @@ name: Build and Push Eureka Server Docker Image
 
 on:
   push:
-    branches: [ "main" ]
-  pull_request:
-    branches: [ "main" ]
+    paths:
+      - 'user-service/**'
+      - '.github/workflows/eureka-server-ci.yml'
 
 jobs:
   build-and-push:
