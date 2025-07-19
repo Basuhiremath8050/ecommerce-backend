@@ -3,7 +3,7 @@ name: Build and Push Inventory Service Docker Image
 on:
   push:
     paths:
-      - 'user-service/**'
+      - 'inventory-service/**'
       - '.github/workflows/inventory-service-ci.yml'
 
 jobs:
