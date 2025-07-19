@@ -28,11 +28,11 @@ public class  OrderService {
         ProductDto product = productClient.getProductById(request.getProductId());
 
 
-        boolean inStock = inventoryClient.isInStock(product.getId(), product.getQuantity());
+        boolean inStock = inventoryClient.isInStock(product.getId(), request.getQuantity());
         if (!inStock) {
             throw new RuntimeException("Not enough stock for product: " + product.getName());
         }
-        String res = inventoryClient.reduceStock(product.getId(), product.getQuantity());
+        String res = inventoryClient.reduceStock(product.getId(), request.getQuantity());
         System.out.println("res = " + res);
         Order order = Order.builder()
                 .productId(product.getId())
