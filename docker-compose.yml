@@ -6,7 +6,7 @@ services:
     container_name: eureka-server-container
     ports:
       - "8761:8761"
-      
+
   postgres:
     image: postgres:15
     container_name: postgres-container
@@ -19,6 +19,14 @@ services:
     volumes:
       - postgres-data:/var/lib/postgresql/data
 
+  mongodb:
+    image: mongo:6.0
+    container_name: mongo-container
+    ports:
+      - "27017:27017"
+    volumes:
+      - mongo-data:/data/db
+
   user-service:
     build: ./user-service
     container_name: user-service-container
@@ -28,9 +36,11 @@ services:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/ecommerce_db
       SPRING_DATASOURCE_USERNAME: postgres
       SPRING_DATASOURCE_PASSWORD: postgres
+      SPRING_DATA_MONGODB_URI: mongodb://mongodb:27017/orderdb
     depends_on:
       - postgres
       - eureka-server
+      - mongodb
 
   product-service:
     build: ./product-service
@@ -45,7 +55,6 @@ services:
       - postgres
       - eureka-server
 
-  
   inventory-service:
     build: ./inventory-service
     container_name: inventory-service-container
@@ -61,3 +70,4 @@ services:
 
 volumes:
   postgres-data:
+  mongo-data:
