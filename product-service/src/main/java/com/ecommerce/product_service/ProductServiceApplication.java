@@ -24,7 +24,7 @@ public class ProductServiceApplication {
                     Product.builder().name("Samsung Galaxy S23").description("Samsung flagship").price(74999.0).build(),
                     Product.builder().name("OnePlus 11").description("Premium OnePlus device").price(59999.0).build(),
                     Product.builder().name("MacBook Pro").description("Apple laptop").price(159999.0).build(),
-                    Product.builder().name("Dell XPS 13").description("Ultrabook laptop").price(139999.0).build(),
+                     Product.builder().name("Dell XPS 13").description("Ultrabook laptop").price(139999.0).build(),
                     Product.builder().name("iPad Air").description("Apple tablet").price(49999.0).build(),
                     Product.builder().name("Sony WH-1000XM5").description("Noise-cancelling headphones").price(29999.0).build(),
                     Product.builder().name("Logitech MX Master 3").description("Ergonomic mouse").price(9999.0).build(),

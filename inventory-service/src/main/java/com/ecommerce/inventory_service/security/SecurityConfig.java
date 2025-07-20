@@ -1,4 +1,5 @@
 package com.ecommerce.inventory_service.security;
+
 import com.ecommerce.inventory_service.exception.CustomAccessDeniedHandler;
 import com.ecommerce.inventory_service.exception.CustomAuthenticationEntryPoint;
 import org.springframework.context.annotation.Bean;
@@ -26,10 +27,7 @@ public class SecurityConfig {
                     csrf.disable();
                 })
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers(
-                            "/check",
-                            "/reduce",
-                            "/actuator/**", "/eureka/**","/v3/api-docs/**",
+                    auth.requestMatchers("/actuator/**", "/eureka/**","/v3/api-docs/**",
                             "/swagger-ui/**",
                             "/swagger-ui.html").permitAll().anyRequest().authenticated();
                 })

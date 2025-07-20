@@ -7,8 +7,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @FeignClient(name = "inventory-service")
 public interface InventoryClient {
-@GetMapping("/check")
+@GetMapping("/api/inventory/check")
 boolean isInStock(@RequestParam Long productId,@RequestParam int quantity);
-@GetMapping
+@GetMapping("/api/inventory/reduce")
 String reduceStock(@RequestParam Long productId,@RequestParam int quantity);
 }
