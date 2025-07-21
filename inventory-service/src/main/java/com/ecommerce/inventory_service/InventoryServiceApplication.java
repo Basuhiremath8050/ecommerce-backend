@@ -11,7 +11,7 @@ import java.util.List;
 
 @SpringBootApplication
 public class InventoryServiceApplication {
-
+    //testing
     public static void main(String[] args) {
         SpringApplication.run(InventoryServiceApplication.class, args);
     }
