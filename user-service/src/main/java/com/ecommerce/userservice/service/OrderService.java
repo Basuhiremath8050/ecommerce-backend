@@ -1,9 +1,11 @@
 package com.ecommerce.userservice.service;
 
+import com.ecommerce.userservice.dto.OrderPlacedEvent;
 import com.ecommerce.userservice.dto.OrderRequest;
 import com.ecommerce.userservice.dto.ProductDto;
 import com.ecommerce.userservice.feignclient.InventoryClient;
 import com.ecommerce.userservice.feignclient.ProductClient;
+import com.ecommerce.userservice.kafka.OrderProducer;
 import com.ecommerce.userservice.model.Order;
 import com.ecommerce.userservice.repository.OrderRepository;
 import org.springframework.stereotype.Service;
@@ -13,13 +15,15 @@ public class  OrderService {
     private final ProductClient productClient;
     private final OrderRepository orderRepository;
     private final InventoryClient inventoryClient;
+    private final OrderProducer orderProducer;
 
 
 
-    public OrderService(ProductClient productClient, OrderRepository orderRepository, InventoryClient inventoryClient) {
+    public OrderService(ProductClient productClient, OrderRepository orderRepository, InventoryClient inventoryClient, OrderProducer orderProducer) {
         this.productClient = productClient;
         this.orderRepository = orderRepository;
         this.inventoryClient = inventoryClient;
+        this.orderProducer = orderProducer;
     }
     public ProductDto fetchProductDetails(Long id) {
         return productClient.getProductById(id);
@@ -41,7 +45,11 @@ public class  OrderService {
                 .totalPrice(product.getPrice() * request.getQuantity())
                 .email(userEmail)
                 .build();
-
+        orderProducer.sendOrderPlacedEvent(
+                new OrderPlacedEvent(order.getId(), order.getEmail(), order.getTotalPrice())
+        );
         return orderRepository.save(order);
+
+
     }
 }
