@@ -4,11 +4,13 @@ server:
 spring:
   application:
     name: user-service
+
   datasource:
     url: jdbc:postgresql://localhost:5432/ecommerce_db
     username: postgres
     password: Nextiqz
     driver-class-name: org.postgresql.Driver
+
   jpa:
     hibernate:
       ddl-auto: create
@@ -18,15 +20,23 @@ spring:
         dialect: org.hibernate.dialect.PostgreSQLDialect
 
   data:
-      mongodb:
-        uri: mongodb://localhost:27017/orderdb
-
+    mongodb:
+      uri: mongodb://localhost:27017/orderdb
 
   kafka:
-      bootstrap-servers: kafka:9092
-      producer:
-        key-serializer: org.apache.kafka.common.serialization.StringSerializer
-        value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    bootstrap-servers: kafka:9092
+    producer:
+      key-serializer: org.apache.kafka.common.serialization.StringSerializer
+      value-serializer: org.springframework.kafka.support.serializer.JsonSerializer
+    properties:
+      spring:
+        json:
+          add:
+            type:
+              headers: false
+    # Optional: Enable topic auto-create (you can remove if managing manually)
+    admin:
+      auto-create: true
 
 eureka:
   client:
