@@ -23,6 +23,7 @@ spring:
     mongodb:
       uri: mongodb://localhost:27017/orderdb
 
+
   kafka:
     bootstrap-servers: kafka:9092
     producer:
@@ -31,12 +32,10 @@ spring:
     properties:
       spring:
         json:
-          add:
-            type:
-              headers: false
-    # Optional: Enable topic auto-create (you can remove if managing manually)
-    admin:
-      auto-create: true
+          type:
+            mapping:
+              orderPlacedEvent: com.ecommerce.userservice.dto.OrderPlacedEvent
+
 
 eureka:
   client:
