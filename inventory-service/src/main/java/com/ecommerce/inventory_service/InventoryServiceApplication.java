@@ -19,6 +19,7 @@ public class InventoryServiceApplication {
     @Bean
     public CommandLineRunner loadData(InventoryRepository inventoryRepository) {
         return args -> {
+            inventoryRepository.deleteAll();
             inventoryRepository.saveAll(List.of(
                     Inventory.builder().productId(1L).quantity(100).build(),
                     Inventory.builder().productId(2L).quantity(50).build(),
@@ -33,5 +34,3 @@ public class InventoryServiceApplication {
             ));
         };
     }
-}
-

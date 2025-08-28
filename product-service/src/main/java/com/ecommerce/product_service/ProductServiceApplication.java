@@ -19,6 +19,7 @@ public class ProductServiceApplication {
     @Bean
     public CommandLineRunner loadData(ProductRepository productRepository) {
         return args -> {
+            productRepository.deleteAll();
             productRepository.saveAll(List.of(
                     Product.builder().name("iPhone 14").description("Apple smartphone").price(79999.0).build(),
                     Product.builder().name("Samsung Galaxy S23").description("Samsung flagship").price(74999.0).build(),
